@@ -5,6 +5,13 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import warnings
 warnings.filterwarnings("ignore")
+import argparse # Command line argument parsing
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--task", default="Return a list of numbers")
+parser.add_argument("--language", default="Python")
+
+args = parser.parse_args()
 
 load_dotenv() # Load vars from env file
 API_KEY = os.getenv("API_KEY")
@@ -25,8 +32,8 @@ code_chain = LLMChain(
 
 # Input variables for the template
 result = code_chain({
-    "language": "python",
-    "task": "return a list of numbers"
+    "language": args.language,
+    "task": args.task
 })
 
 print(result)
